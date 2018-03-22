@@ -1,0 +1,173 @@
+{
+  "languageModel": {
+    "types": [
+      {
+        "name": "Food_Places",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "bodega",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "asian",
+              "synonyms": [
+                "five-spice",
+                "5-spice",
+                "5spice",
+                "spice",
+                "five spice",
+                "asian"
+              ]
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "olive branch",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "launch",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "mexican",
+              "synonyms": [
+                "saZon",
+                "sazOn",
+                "sazown",
+                "saz-own",
+                "SaZon",
+                "mexican"
+              ]
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "sazOwn",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "so zone",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "Food_Time",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "Lunch",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Breakfast",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Dinner",
+              "synonyms": []
+            }
+          }
+        ]
+      }
+    ],
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+      },
+      {
+        "name": "BeginIntent",
+        "samples": [
+          "What can I eat at {Restaurant}",
+          "What can I eat at {Restaurant} today",
+          "{Restaurant} menu today",
+          "{Restaurant} menu",
+          "{Restaurant}",
+          "What's the menu for {Restaurant}",
+          "What is the menu for {Restaurant}",
+          "Leos menu for {Time}",
+          "I'm hungry",
+          "What is Leos serving today",
+          "Georgetown Hungry",
+          "what is the dining hall serving",
+          "What is Leos serving",
+          "What can I eat today at Leos",
+          "What can I eat today",
+          "{Time} menu",
+          "Leos {Time} menu",
+          "Leos menu"
+        ],
+        "slots": [
+          {
+            "name": "Time",
+            "type": "Food_Time"
+          },
+          {
+            "name": "Restaurant",
+            "type": "Food_Places"
+          }
+        ]
+      },
+      {
+        "name": "FullMenuIntent",
+        "samples": [],
+        "slots": []
+      },
+      {
+        "name": "GetBreakfastMenu",
+        "samples": [],
+        "slots": []
+      },
+      {
+        "name": "GetDinnerMenu",
+        "samples": [],
+        "slots": []
+      },
+      {
+        "name": "GetLunchMenu",
+        "samples": [],
+        "slots": []
+      },
+      {
+        "name": "GetUpstairsMenu",
+        "samples": [],
+        "slots": []
+      }
+    ],
+    "invocationName": "leos"
+  }
+}
