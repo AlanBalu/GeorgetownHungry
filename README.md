@@ -1,4 +1,7 @@
 # LeosDiningSkill
+
+Ever find yourself wondering what Leos is serving today??? Well, not need to fire up that ol' macbook! Just ask Alexa to read the menu.
+
 Alexa skill to ask what Leo O'Donovan Dining Hall is serving today. Developed by Alan Balu, March 2018, version 2.0. copyright
 
 Invoke the skill by saying:   "ask leos for the ______ menu"
