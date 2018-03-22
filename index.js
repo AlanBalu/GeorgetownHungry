@@ -885,14 +885,3 @@ const handlers = {
         this.emit(':tell', STOP_MESSAGE);
     },
 };
-
-
-///WORKS!!!
-
-/*
-    Now: h4 class ="toggle-menu-station-data"   =>  h4.toggle-menu-station-data
-        this gets the name of the section --> .text() should give the section 
-        Check if Harvest, Sweets, Comfort, Allergen, Smoked?
-        Go to next sibling -> next() I think ... check if class is 
-        Get the li.menu-item-li stuff from that thing.
-*/
