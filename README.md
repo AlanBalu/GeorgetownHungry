@@ -4,6 +4,9 @@ Ever find yourself wondering what Leos is serving today??? Well, not need to fir
 
 Alexa skill to ask what Leo O'Donovan Dining Hall is serving today. Developed by Alan Balu, March 2018, version 2.0. copyright 2018.
 
+Invoke the skill by saying:   "ask leos for the ______ menu"
+   - You can say Breakfast, Lunch, Dinner, Sazon, Launch, Five Spice, Bodega, or Olive Branch for the blank space above.
+
 Invoke the skill by saying (1) :   "ask leos for the ______ menu"
   - You can say Breakfast, Lunch, or Dinner for the blank space above.
   
