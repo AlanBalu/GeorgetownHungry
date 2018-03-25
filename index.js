@@ -15,7 +15,7 @@ const APP_ID = 'amzn1.ask.skill.52f23934-7e63-4d38-8f75-a8cf9a6ada1e';
 
 const SKILL_NAME = 'Georgetown Hungry';
 const GET_FACT_MESSAGE = " ";
-const HELP_MESSAGE = 'You can say STOP or leos menu or leos breakfast or lunch or dinner menu... What can I help you with?';
+const HELP_MESSAGE = "You can say STOP or leos menu or leos breakfast menu or What's the sazOwn menu... What can I help you with?";
 const HELP_REPROMPT = 'What can I help you with?';
 const STOP_MESSAGE = 'Goodbye!';
 
@@ -715,7 +715,7 @@ const handlers = {
     var new_intent = this.event.request.intent;
 
         var TimeSlotValid = new_intent && new_intent.slots && new_intent.slots.Time && new_intent.slots.Time.value;
-        var RestaurantSlotValid = new_intent && new_intent.slots && new_intent.slots.Restaurant && new_intent.slots.Restaurant.value;
+        var PlaceSlotValid = new_intent && new_intent.slots && new_intent.slots.Place && new_intent.slots.Place.value;
 
         if (TimeSlotValid) {
             
@@ -733,37 +733,38 @@ const handlers = {
                 }
                 else {
                     console.log("Not sure which time slot");
-                    this.emit('FullMenuIntent');
+                    this.emit('AMAZON.HelpIntent');
                 }
 
         } //end if answerslotvalid
 
-        else if (RestaurantSlotValid) {
+        else if (PlaceSlotValid) {
 
-                var locationName = new_intent.slots.Restaurant.value;
+            var placeName = new_intent.slots.Place.value;
+            console.log("slot was: " + placeName);
 
-                console.log("slot was: " + locationName);
+            if (placeName == 'Mexican' || placeName == 'sazown') {
+                this.emit('GetUpstairsMenu', Sazon_stem, "Sazon");
+            }
+            else if (placeName == 'launch') {
+                this.emit('GetUpstairsMenu', Launch_stem, "Launch");
+            }
+            else if (placeName == 'Asian' || placeName == '5 spice') {
+                this.emit('GetUpstairsMenu', FiveSpice_stem, "Five Spice");
+            }
+            else if (placeName == 'olive branch') {
+                this.emit('GetUpstairsMenu', OliveBranch_stem, "Olive Branch");
+            }
+            else if (placeName == 'bodega') {
+                this.emit('GetUpstairsMenu', Bodega_stem, "Bodega");
+            }
+            else {
+                console.log("Not sure which time slot");
+                this.emit('AMAZON.HelpIntent');
+            }
 
-                if (locationName == 'Mexican' || locationName == 'sazown') {
-                    this.emit('GetUpstairsMenu', Sazon_stem, "Sazon");
-                }
-                else if (locationName == 'launch') {
-                    this.emit('GetUpstairsMenu', Launch_stem, "Launch");
-                }
-                else if (locationName == 'Asian' || locationName == '5 spice') {
-                    this.emit('GetUpstairsMenu', FiveSpice_stem, "Five Spice");
-                }
-                else if (locationName == 'olive branch') {
-                    this.emit('GetUpstairsMenu', OliveBranch_stem, "Olive Branch");
-                }
-                else if (locationName == 'bodega') {
-                    this.emit('GetUpstairsMenu', Bodega_stem, "Bodega");
-                }
-                else {
-                    console.log("Not sure which time slot");
-                    this.emit('FullMenuIntent');
-                }
         }
+
         else {
                 console.log("No time slot");
                 this.emit('FullMenuIntent');
@@ -832,6 +833,13 @@ const handlers = {
 
         function read_data(data) {
 
+            if (data.length < 1) {
+                
+                speechOutput = speechOutput + "Sorry! " + location + " is not serving food today.";
+                cardOutput = cardOutput + "Sorry! " + location + " is not serving food today.";
+            }
+            else {
+
                 speechOutput = speechOutput + "The " + location + " menu is: ";
                 for(var i = 0; i < (data).length; i++) {
                     speechOutput = speechOutput + " " + data[i];
@@ -846,6 +854,7 @@ const handlers = {
                     cardOutput = cardOutput + " " + data[i] + ",";
                 }
                 speechOutput = speechOutput + ". ";
+            }
         }
 
 
