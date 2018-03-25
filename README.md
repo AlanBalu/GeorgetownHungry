@@ -6,14 +6,6 @@ Alexa skill to ask what Leo O'Donovan Dining Hall is serving today. Developed by
 
 Invoke the skill by saying:   "ask leos for the ______ menu"
    - You can say Breakfast, Lunch, Dinner, Sazon, Launch, Five Spice, Bodega, or Olive Branch for the blank space above.
-
-Invoke the skill by saying (1) :   "ask leos for the ______ menu"
-  - You can say Breakfast, Lunch, or Dinner for the blank space above.
-  
-  OR
-  
-  (2) :  "ask leos what's the ______ menu"
-  - You can say Bodega, Launch, Five Spice, Olive Branch, or Sazon for the blank space above
   
 contact reachalanbalu@gmail.com for issues or improvement requests....
 
