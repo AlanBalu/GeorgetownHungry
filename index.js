@@ -1,7 +1,7 @@
 /*
     Author: Alan Balu
-    Version: 1.0
-    Date: 3/22/2018
+    Version: 3.0
+    Date: 6/7/2018
 
     Copyright (c) 2018, Alan Balu
 */
@@ -15,7 +15,7 @@ const APP_ID = 'amzn1.ask.skill.52f23934-7e63-4d38-8f75-a8cf9a6ada1e';
 
 const SKILL_NAME = 'Georgetown Hungry';
 const GET_FACT_MESSAGE = " ";
-const HELP_MESSAGE = 'You can say STOP or leos menu or leos breakfast or lunch or dinner menu... What can I help you with?';
+const HELP_MESSAGE = "You can say STOP or leos menu or leos breakfast menu or What's the sazOwn menu... What can I help you with?";
 const HELP_REPROMPT = 'What can I help you with?';
 const STOP_MESSAGE = 'Goodbye!';
 
@@ -185,52 +185,60 @@ const handlers = {
 
         function read_data(data) {
 
-                speechOutput = speechOutput + "The Leo's Breakfast menu is: ";
-                for(var i = 0; i < (data.breakfast).length; i++) {
-                    speechOutput = speechOutput + " " + data.breakfast[i];
-
-                        if (i != (data.breakfast.length - 2)) {
-                            speechOutput = speechOutput + ",";
-                        }
-                        else {
-                        speechOutput = speechOutput + ", and";
-                        }
-
-                    cardOutput = cardOutput + " " + data.breakfast[i] + ",";
+                if ((data.breakfast.length < 1) && (data.lunch.length < 1) && (data.dinner.length < 1)) {
+                    speechOutput = speechOutput + "Sorry, Leos is not serving Food today.";
+                    cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
                 }
-                speechOutput = speechOutput + ". ";
+
+                else {
+
+                    speechOutput = speechOutput + "The Leo's Breakfast menu is: ";
+                    for(var i = 0; i < (data.breakfast).length; i++) {
+                        speechOutput = speechOutput + " " + data.breakfast[i];
+
+                            if (i != (data.breakfast.length - 2)) {
+                                speechOutput = speechOutput + ",";
+                            }
+                            else {
+                            speechOutput = speechOutput + ", and";
+                            }
+
+                        cardOutput = cardOutput + " " + data.breakfast[i] + ",";
+                    }
+                    speechOutput = speechOutput + ". ";
 
 
-                speechOutput = speechOutput + "The Leo's Lunch menu is: ";
-                for(var i = 0; i < (data.lunch).length; i++) {
-                    speechOutput = speechOutput + " " + data.lunch[i];
+                    speechOutput = speechOutput + "The Leo's Lunch menu is: ";
+                    for(var i = 0; i < (data.lunch).length; i++) {
+                        speechOutput = speechOutput + " " + data.lunch[i];
 
-                        if (i != (data.lunch.length - 2)) {
-                            speechOutput = speechOutput + ",";
+                            if (i != (data.lunch.length - 2)) {
+                                speechOutput = speechOutput + ",";
+                            }
+                            else {
+                                speechOutput = speechOutput + ", and";
+                            }
+
+                        cardOutput = cardOutput + " " + data.lunch[i] + ",";
+                    }
+                    speechOutput = speechOutput + ". ";
+
+
+                    speechOutput = speechOutput + "The Leo's Dinner menu is: ";
+                    for(var i = 0; i < (data.dinner).length; i++) {
+                        speechOutput = speechOutput + " " + data.dinner[i];
+
+                        if (i != (data.dinner.length - 2)) {
+                                speechOutput = speechOutput + ",";
                         }
                         else {
                             speechOutput = speechOutput + ", and";
                         }
 
-                    cardOutput = cardOutput + " " + data.lunch[i] + ",";
-                }
-                speechOutput = speechOutput + ". ";
-
-
-                speechOutput = speechOutput + "The Leo's Dinner menu is: ";
-                for(var i = 0; i < (data.dinner).length; i++) {
-                    speechOutput = speechOutput + " " + data.dinner[i];
-
-                    if (i != (data.dinner.length - 2)) {
-                            speechOutput = speechOutput + ",";
+                        cardOutput = cardOutput + " " + data.dinner[i] + ",";
                     }
-                    else {
-                        speechOutput = speechOutput + ", and";
-                    }
-
-                    cardOutput = cardOutput + " " + data.dinner[i] + ",";
+                    speechOutput = speechOutput + ". ";
                 }
-                speechOutput = speechOutput + ". ";
         }
 
 
@@ -361,6 +369,12 @@ const handlers = {
 
         function read_data(data) {
 
+            if (data.length < 1) {
+                speechOutput = speechOutput + "Sorry. Leo's is not serving Breakfast today.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+            }
+            else {
+
                 speechOutput = speechOutput + "The Leo's Breakfast menu is: ";
                 for(var i = 0; i < (data).length; i++) {
                     speechOutput = speechOutput + " " + data[i];
@@ -375,6 +389,7 @@ const handlers = {
                     cardOutput = cardOutput + " " + data[i] + ",";
                 }
                 speechOutput = speechOutput + ". ";
+            }
         }
 
 
@@ -514,6 +529,13 @@ const handlers = {
 
         function read_data(data) {
 
+            if (data.length < 1) {
+                speechOutput = speechOutput + "Sorry. Leo's is not serving Lunch today.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+            }
+
+            else {
+
                 speechOutput = speechOutput + "The Leo's Lunch menu is: ";
                 for(var i = 0; i < (data).length; i++) {
                     speechOutput = speechOutput + " " + data[i];
@@ -528,6 +550,7 @@ const handlers = {
                     cardOutput = cardOutput + " " + data[i] + ",";
                 }
                 speechOutput = speechOutput + ". ";
+            }
         }
 
 
@@ -671,6 +694,12 @@ const handlers = {
 
         function read_data(data) {
 
+            if (data.length < 1) {
+                speechOutput = speechOutput + "Sorry. Leo's is not serving dinner today.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+            }
+            else {
+
                 speechOutput = speechOutput + "The Leo's Dinner menu is: ";
                 for(var i = 0; i < (data).length; i++) {
                     speechOutput = speechOutput + " " + data[i];
@@ -685,6 +714,7 @@ const handlers = {
                     cardOutput = cardOutput + " " + data[i] + ",";
                 }
                 speechOutput = speechOutput + ". ";
+            }
         }
 
 
@@ -715,7 +745,7 @@ const handlers = {
     var new_intent = this.event.request.intent;
 
         var TimeSlotValid = new_intent && new_intent.slots && new_intent.slots.Time && new_intent.slots.Time.value;
-        var RestaurantSlotValid = new_intent && new_intent.slots && new_intent.slots.Restaurant && new_intent.slots.Restaurant.value;
+        //var PlaceSlotValid = new_intent && new_intent.slots && new_intent.slots.Place && new_intent.slots.Place.value;
 
         if (TimeSlotValid) {
             
@@ -731,39 +761,58 @@ const handlers = {
                 else if (timeName == 'dinner') {
                     this.emit('GetDinnerMenu');
                 }
-                else {
-                    console.log("Not sure which time slot");
-                    this.emit('FullMenuIntent');
+                else if (timeName == 'Mexican' || timeName == 'sazown') {
+                    this.emit('GetUpstairsMenu', Sazon_stem, "Sazown");
                 }
-
-        } //end if answerslotvalid
-
-        else if (RestaurantSlotValid) {
-
-                var locationName = new_intent.slots.Restaurant.value;
-
-                console.log("slot was: " + locationName);
-
-                if (locationName == 'Mexican' || locationName == 'sazown') {
-                    this.emit('GetUpstairsMenu', Sazon_stem, "Sazon");
-                }
-                else if (locationName == 'launch') {
+                else if (timeName == 'launch') {
                     this.emit('GetUpstairsMenu', Launch_stem, "Launch");
                 }
-                else if (locationName == 'Asian' || locationName == '5 spice') {
+                else if (timeName == 'Asian' || timeName == '5 spice') {
                     this.emit('GetUpstairsMenu', FiveSpice_stem, "Five Spice");
                 }
-                else if (locationName == 'olive branch') {
+                else if (timeName == 'olive branch') {
                     this.emit('GetUpstairsMenu', OliveBranch_stem, "Olive Branch");
                 }
-                else if (locationName == 'bodega') {
+                else if (timeName == 'full') {
+                    this.emit('FullMenuIntent');
+                }
+                else if (timeName == 'bodega') {
                     this.emit('GetUpstairsMenu', Bodega_stem, "Bodega");
                 }
                 else {
                     console.log("Not sure which time slot");
-                    this.emit('FullMenuIntent');
+                    this.emit('AMAZON.HelpIntent');
                 }
-        }
+
+        } //end if answerslotvalid
+
+        /*else if (PlaceSlotValid) {
+
+            var placeName = new_intent.slots.Place.value;
+            console.log("slot was: " + placeName);
+
+            if (placeName == 'Mexican' || placeName == 'sazown') {
+                this.emit('GetUpstairsMenu', Sazon_stem, "Sazon");
+            }
+            else if (placeName == 'launch') {
+                this.emit('GetUpstairsMenu', Launch_stem, "Launch");
+            }
+            else if (placeName == 'Asian' || placeName == '5 spice') {
+                this.emit('GetUpstairsMenu', FiveSpice_stem, "Five Spice");
+            }
+            else if (placeName == 'olive branch') {
+                this.emit('GetUpstairsMenu', OliveBranch_stem, "Olive Branch");
+            }
+            else if (placeName == 'bodega') {
+                this.emit('GetUpstairsMenu', Bodega_stem, "Bodega");
+            }
+            else {
+                console.log("Not sure which time slot");
+                this.emit('AMAZON.HelpIntent');
+            }
+
+        } */
+
         else {
                 console.log("No time slot");
                 this.emit('FullMenuIntent');
@@ -832,6 +881,13 @@ const handlers = {
 
         function read_data(data) {
 
+            if (data.length < 1) {
+                
+                speechOutput = speechOutput + "Sorry! " + location + " is not serving food today.";
+                cardOutput = cardOutput + "Sorry! " + location + " is not serving food today.";
+            }
+            else {
+
                 speechOutput = speechOutput + "The " + location + " menu is: ";
                 for(var i = 0; i < (data).length; i++) {
                     speechOutput = speechOutput + " " + data[i];
@@ -846,6 +902,7 @@ const handlers = {
                     cardOutput = cardOutput + " " + data[i] + ",";
                 }
                 speechOutput = speechOutput + ". ";
+            }
         }
 
 
@@ -868,7 +925,7 @@ const handlers = {
 
     }, //end GetUpstairsMenu
 
-    
+
     'AMAZON.HelpIntent': function () {
         const speechOutput = HELP_MESSAGE;
         const reprompt = HELP_REPROMPT;
@@ -885,3 +942,4 @@ const handlers = {
         this.emit(':tell', STOP_MESSAGE);
     },
 };
+
