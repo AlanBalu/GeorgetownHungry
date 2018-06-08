@@ -4,13 +4,6 @@
       {
         "name": "Food_Places",
         "values": [
-         {
-            "id": null,
-            "name": {
-              "value": "full",
-              "synonyms": []
-            }
-          },
           {
             "id": null,
             "name": {
