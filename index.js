@@ -1,7 +1,9 @@
 /*
     Author: Alan Balu
-    Version: 3.0
-    Date: 6/7/2018
+    Version: 2.0
+    Date: 10/9/2018
+
+    **added Somked section to list
 
     Copyright (c) 2018, Alan Balu
 */
@@ -11,11 +13,11 @@ const Alexa = require('alexa-sdk');
 var request = require('request');
 var cheerio = require('cheerio'); 
 
-const APP_ID = 'amzn1.ask.skill.52f23934-7e63-4d38-8f75-a8cf9a6ada1e';
+const APP_ID = 'amzn1.ask.skill.6b553a75-e592-4262-8f2c-41143a43c5c9';
 
 const SKILL_NAME = 'Georgetown Hungry';
 const GET_FACT_MESSAGE = " ";
-const HELP_MESSAGE = "You can say STOP or leos menu or leos breakfast menu or What's the sazOwn menu... What can I help you with?";
+const HELP_MESSAGE = "You can say STOP or what's the breakfast or full or sazown menu... What can I help you with?";
 const HELP_REPROMPT = 'What can I help you with?';
 const STOP_MESSAGE = 'Goodbye!';
 
@@ -165,7 +167,23 @@ const handlers = {
                                       console.log(menu_item);
                                   });
 
+                                  //time++;
+                              }
+
+                              else if ($(this).text() == "Smoked") {
+
+                                  $(this).next().find('li').each(function(i, elem) {
+                                      
+                                      var menu_item = $(this).text();
+                                      menu_item = menu_item.replace(/(\r\n\t|\n|\r\t|\t|\s\s)/gm,"");
+                                      menu_item = menu_item.replace(/(&)/gm, "and");
+                                      list[iterator] = menu_item;
+                                      iterator++;
+                                      console.log(menu_item);
+                                  });
+
                                   time++;
+
                               }
 
                             });
@@ -352,7 +370,22 @@ const handlers = {
                                       console.log(menu_item);
                                   });
 
+                                  //time++;
+                              }
+                              else if ($(this).text() == "Smoked") {
+
+                                  $(this).next().find('li').each(function(i, elem) {
+                                      
+                                      var menu_item = $(this).text();
+                                      menu_item = menu_item.replace(/(\r\n\t|\n|\r\t|\t|\s\s)/gm,"");
+                                      menu_item = menu_item.replace(/(&)/gm, "and");
+                                      list[iterator] = menu_item;
+                                      iterator++;
+                                      console.log(menu_item);
+                                  });
+
                                   time++;
+
                               }
 
                             });
@@ -512,7 +545,22 @@ const handlers = {
                                       console.log(menu_item);
                                   });
 
+                                  //time++;
+                              }
+                              else if ($(this).text() == "Smoked") {
+
+                                  $(this).next().find('li').each(function(i, elem) {
+                                      
+                                      var menu_item = $(this).text();
+                                      menu_item = menu_item.replace(/(\r\n\t|\n|\r\t|\t|\s\s)/gm,"");
+                                      menu_item = menu_item.replace(/(&)/gm, "and");
+                                      list[iterator] = menu_item;
+                                      iterator++;
+                                      console.log(menu_item);
+                                  });
+
                                   time++;
+
                               }
 
                             });
@@ -675,7 +723,22 @@ const handlers = {
                                       console.log(menu_item);
                                   });
 
+                                  //time++;
+                              }
+                              else if ($(this).text() == "Smoked") {
+
+                                  $(this).next().find('li').each(function(i, elem) {
+                                      
+                                      var menu_item = $(this).text();
+                                      menu_item = menu_item.replace(/(\r\n\t|\n|\r\t|\t|\s\s)/gm,"");
+                                      menu_item = menu_item.replace(/(&)/gm, "and");
+                                      list[iterator] = menu_item;
+                                      iterator++;
+                                      console.log(menu_item);
+                                  });
+
                                   time++;
+
                               }
 
                             });
@@ -740,16 +803,16 @@ const handlers = {
 
     'BeginIntent' : function () {
 
-    console.log("URL is: " + URL);
+        console.log("URL is: " + URL);
 
-    var new_intent = this.event.request.intent;
+        var new_intent = this.event.request.intent;
 
-        var TimeSlotValid = new_intent && new_intent.slots && new_intent.slots.Time && new_intent.slots.Time.value;
+        var TimeSlotValid = new_intent && new_intent.slots && new_intent.slots.food_time && new_intent.slots.food_time.value;
         //var PlaceSlotValid = new_intent && new_intent.slots && new_intent.slots.Place && new_intent.slots.Place.value;
 
         if (TimeSlotValid) {
             
-                var timeName = new_intent.slots.Time.value;
+                var timeName = new_intent.slots.food_time.value;
                 console.log("slot was: " + timeName);
 
                 if (timeName == 'breakfast') {
@@ -943,3 +1006,13 @@ const handlers = {
     },
 };
 
+
+///WORKS!!!
+
+/*
+    Now: h4 class ="toggle-menu-station-data"   =>  h4.toggle-menu-station-data
+        this gets the name of the section --> .text() should give the section 
+        Check if Harvest, Sweets, Comfort, Allergen, Smoked?
+        Go to next sibling -> next() I think ... check if class is 
+        Get the li.menu-item-li stuff from that thing.
+*/
