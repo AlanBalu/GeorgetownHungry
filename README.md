@@ -11,4 +11,4 @@ contact reachalanbalu@gmail.com for issues or improvement requests....
 
 FYI I made this just for fun lol
 
-Developed by Alan Balu, March 2018, version 2.0. copyright 2018.
+Developed by Alan Balu, March 2018, version 3.0. copyright 2018.
