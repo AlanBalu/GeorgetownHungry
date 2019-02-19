@@ -1,9 +1,7 @@
 /*
     Author: Alan Balu
-    Version: 2.0
-    Date: 10/9/2018
-
-    **added Somked section to list
+    Version: 3.0
+    Date: 6/10/2018
 
     Copyright (c) 2018, Alan Balu
 */
@@ -1008,11 +1006,3 @@ const handlers = {
 
 
 ///WORKS!!!
-
-/*
-    Now: h4 class ="toggle-menu-station-data"   =>  h4.toggle-menu-station-data
-        this gets the name of the section --> .text() should give the section 
-        Check if Harvest, Sweets, Comfort, Allergen, Smoked?
-        Go to next sibling -> next() I think ... check if class is 
-        Get the li.menu-item-li stuff from that thing.
-*/
