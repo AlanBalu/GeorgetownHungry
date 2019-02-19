@@ -1,4 +1,4 @@
-# GeorgetownHungry
+# HungryHoya
 
 Ever find yourself wondering what Leos is serving today??? Well, not need to fire up that ol' macbook! Just ask Alexa to read the menu.
 
