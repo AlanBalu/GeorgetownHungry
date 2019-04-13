@@ -1,7 +1,7 @@
 /*
     Author: Alan Balu
     Version: 3.0
-    Date: 6/10/2018
+    Date: 4/13/2019
 
     Copyright (c) 2018, Alan Balu
 */
@@ -202,8 +202,8 @@ const handlers = {
         function read_data(data) {
 
                 if ((data.breakfast.length < 1) && (data.lunch.length < 1) && (data.dinner.length < 1)) {
-                    speechOutput = speechOutput + "Sorry, Leos is not serving Food today.";
-                    cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+                    speechOutput = speechOutput + "Sorry, Leos is not serving Food right now.";
+                    cardOutput = cardOutput + "Sorry, Leos is not serving Food right now.";
                 }
 
                 else {
@@ -401,8 +401,8 @@ const handlers = {
         function read_data(data) {
 
             if (data.length < 1) {
-                speechOutput = speechOutput + "Sorry. Leo's is not serving Breakfast today.";
-                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+                speechOutput = speechOutput + "Sorry. Leo's is not serving Breakfast right now.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food right now.";
             }
             else {
 
@@ -576,8 +576,8 @@ const handlers = {
         function read_data(data) {
 
             if (data.length < 1) {
-                speechOutput = speechOutput + "Sorry. Leo's is not serving Lunch today.";
-                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+                speechOutput = speechOutput + "Sorry. Leo's is not serving Lunch right now.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food right now.";
             }
 
             else {
@@ -756,8 +756,8 @@ const handlers = {
         function read_data(data) {
 
             if (data.length < 1) {
-                speechOutput = speechOutput + "Sorry. Leo's is not serving dinner today.";
-                cardOutput = cardOutput + "Sorry, Leos is not serving Food today.";
+                speechOutput = speechOutput + "Sorry. Leo's is not serving dinner right now.";
+                cardOutput = cardOutput + "Sorry, Leos is not serving Food right now.";
             }
             else {
 
@@ -803,6 +803,22 @@ const handlers = {
 
         console.log("URL is: " + URL);
 
+        var correctDate = new Date();
+        var hours = correctDate.getHours();
+    	correctDate.setHours(hours - 4); //subtract 4 for EST offset from UTC time
+
+    	if(correctDate.getHours() > 19) { //subtract 1 from date if UTC time is ahead by a day
+          correctDate.setDate(correctDate.getDate() - 1);
+     	}
+
+     	//console.log(correctDate);
+
+    	var theMonth = correctDate.getMonth() + 1;
+		var theDay = correctDate.getDate();
+		var theYear = correctDate.getFullYear();
+		var formattedDate = theYear + "-" + theMonth + "-" + theDay;
+		console.log("Date: " + formattedDate);
+
         var new_intent = this.event.request.intent;
 
         var TimeSlotValid = new_intent && new_intent.slots && new_intent.slots.food_time && new_intent.slots.food_time.value;
@@ -823,16 +839,21 @@ const handlers = {
                     this.emit('GetDinnerMenu');
                 }
                 else if (timeName == 'Mexican' || timeName == 'sazown') {
-                    this.emit('GetUpstairsMenu', Sazon_stem, "Sazown");
+                	var URLwDate = Sazon_stem + "?date=" + String(formattedDate)
+                    this.emit('GetUpstairsMenu', URLwDate, "Sazown");
                 }
                 else if (timeName == 'launch') {
-                    this.emit('GetUpstairsMenu', Launch_stem, "Launch");
+                	var URLwDate = Launch_stem + "?date=" + String(formattedDate)
+                    console.log(URLwDate)
+                    this.emit('GetUpstairsMenu', URLwDate, "Launch");
                 }
                 else if (timeName == 'Asian' || timeName == '5 spice') {
-                    this.emit('GetUpstairsMenu', FiveSpice_stem, "Five Spice");
+                	var URLwDate = FiveSpice_stem + "?date=" + String(formattedDate)
+                    this.emit('GetUpstairsMenu', URLwDate, "Five Spice");
                 }
                 else if (timeName == 'olive branch') {
-                    this.emit('GetUpstairsMenu', OliveBranch_stem, "Olive Branch");
+                	var URLwDate = OliveBranch_stem + "?date=" + String(formattedDate)
+                    this.emit('GetUpstairsMenu', URLwDate, "Olive Branch");
                 }
                 else if (timeName == 'full') {
                     this.emit('FullMenuIntent');
@@ -905,19 +926,28 @@ const handlers = {
 
                          if (!error && response.statusCode == 200) {
                             var $ = cheerio.load(html);
-
+                            //console.log(html)
                             //element in list
                             var iterator = 0;
 
                             var time = 1;
 
+                            var hasGrainBowl = false;
+
                             $('h4.toggle-menu-station-data').each(function(i, elem) { 
+
+                            	//console.log($(this))
 
                                 $(this).next().find('li').each(function(i, elem) {
                                       
                                       var menu_item = $(this).text();
                                       menu_item = menu_item.replace(/(\r\n\t|\n|\r\t|\t|\s\s)/gm,"");
                                       menu_item = menu_item.replace(/(&)/gm, "and");
+
+                                      if(menu_item.includes("Flatbread")) {
+                                      		hasGrainBowl = true;
+                                      }
+
                                       list[iterator] = menu_item;
                                       iterator++;
                                       console.log(menu_item);
@@ -929,6 +959,10 @@ const handlers = {
                                     return false;
                                 }
                             });
+
+                            if (hasGrainBowl) { //if flatbreads are in menu, add GrainBowl (for olive branch)
+                            	list[iterator] = "GrainBowl"
+                            }
 
                             resolve(list);
                             console.log(list); //all the data for food
@@ -944,8 +978,8 @@ const handlers = {
 
             if (data.length < 1) {
                 
-                speechOutput = speechOutput + "Sorry! " + location + " is not serving food today.";
-                cardOutput = cardOutput + "Sorry! " + location + " is not serving food today.";
+                speechOutput = speechOutput + "Sorry! " + location + " is not serving food right now.";
+                cardOutput = cardOutput + "Sorry! " + location + " is not serving food right now.";
             }
             else {
 
@@ -1006,3 +1040,11 @@ const handlers = {
 
 
 ///WORKS!!!
+
+/*
+    Now: h4 class ="toggle-menu-station-data"   =>  h4.toggle-menu-station-data
+        this gets the name of the section --> .text() should give the section 
+        Check if Harvest, Sweets, Comfort, Allergen, Smoked?
+        Go to next sibling -> next() I think ... check if class is 
+        Get the li.menu-item-li stuff from that thing.
+*/
